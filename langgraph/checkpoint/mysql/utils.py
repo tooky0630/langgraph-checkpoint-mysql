@@ -77,4 +77,4 @@ def deserialize_channel_values(value: str) -> list[tuple[str, str, Optional[byte
 def mysql_mariadb_branch(mysql_fragment: str, mariadb_fragment: str) -> str:
     # MariaDB ignores MySQL conditional comments with version numbers between
     # 500700 and 999999. We can use this to our advantage.
-    return f"/*!50700 {mysql_fragment}*//*M! {mariadb_fragment}*/"
+    return f"{mysql_fragment}"
