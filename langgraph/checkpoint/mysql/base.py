@@ -214,19 +214,19 @@ UPSERT_CHECKPOINT_BLOBS_SQL = """
 
 UPSERT_CHECKPOINTS_SQL = f"""
     INSERT INTO checkpoints (thread_id, checkpoint_ns, checkpoint_ns_hash, checkpoint_id, parent_checkpoint_id, checkpoint, metadata)
-    VALUES (%s, %s, UNHEX(MD5(%s)), %s, %s, %s, %s) {mysql_mariadb_branch("AS new", "")}
+    VALUES (%s, %s, UNHEX(MD5(%s)), %s, %s, %s, %s) 
     ON DUPLICATE KEY UPDATE
-        checkpoint = {mysql_mariadb_branch("new.checkpoint", "VALUE(checkpoint)")},
-        metadata = {mysql_mariadb_branch("new.metadata", "VALUE(metadata)")}
+        checkpoint = {mysql_mariadb_branch("checkpoint", "VALUE(checkpoint)")},
+        metadata = {mysql_mariadb_branch("metadata", "VALUE(metadata)")}
 """
 
 UPSERT_CHECKPOINT_WRITES_SQL = f"""
     INSERT INTO checkpoint_writes (thread_id, checkpoint_ns, checkpoint_ns_hash, checkpoint_id, task_id, task_path, idx, channel, type, `blob`)
-    VALUES (%s, %s, UNHEX(MD5(%s)), %s, %s, %s, %s, %s, %s, %s) {mysql_mariadb_branch("AS new", "")}
+    VALUES (%s, %s, UNHEX(MD5(%s)), %s, %s, %s, %s, %s, %s, %s) 
     ON DUPLICATE KEY UPDATE
-        channel = {mysql_mariadb_branch("new.channel", "VALUE(channel)")},
-        type = {mysql_mariadb_branch("new.type", "VALUE(type)")},
-        `blob` = {mysql_mariadb_branch("new.blob", "VALUE(`blob`)")};
+        channel = {mysql_mariadb_branch("channel", "VALUE(channel)")},
+        type = {mysql_mariadb_branch("type", "VALUE(type)")},
+        `blob` = {mysql_mariadb_branch("blob", "VALUE(`blob`)")};
 """
 
 INSERT_CHECKPOINT_WRITES_SQL = """
