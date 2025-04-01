@@ -226,7 +226,7 @@ UPSERT_CHECKPOINT_WRITES_SQL = f"""
     ON DUPLICATE KEY UPDATE
         channel = {mysql_mariadb_branch("channel", "VALUE(channel)")},
         type = {mysql_mariadb_branch("type", "VALUE(type)")},
-        `blob` = {mysql_mariadb_branch("blob", "VALUE(`blob`)")};
+        `blob` = {mysql_mariadb_branch("`blob`", "VALUE(`blob`)")};
 """
 
 INSERT_CHECKPOINT_WRITES_SQL = """
